@@ -1,6 +1,6 @@
 import random
 
-from resources.initial import *
+from initial import *
 
 
 def removeAccents(input_str):
