@@ -11,14 +11,14 @@ class RunApp(Thread):
     def run(self):
         for i in range(numLoop):
             cmd('{0}\\dnconsole.exe modify --index {1} --imei auto --androidid auto --mac auto'.format(pathLdPlayer, i))
-            cmd('{0}\\dnconsole.exe setprop --index {1} --key "phone.imei" --value "auto"'.format(pathLdPlayer, i))
-            cmd('{0}\\dnconsole.exe setprop --index {1} --key "phone.imsi" --value "auto"'.format(pathLdPlayer, i))
-            cmd('{0}\\dnconsole.exe setprop --index {1} --key "phone.simserial" --value "auto"'.format(pathLdPlayer, i))
             print("Start:", self.index)
             installAppication(self.device, pathApplication)
             grantPermissions(self.device)
             startWarp(self.device)
             startLite(self.device)
+            cmd('{0}\\dnconsole.exe setprop --index {1} --key "phone.imei" --value "auto"'.format(pathLdPlayer, i))
+            cmd('{0}\\dnconsole.exe setprop --index {1} --key "phone.imsi" --value "auto"'.format(pathLdPlayer, i))
+            cmd('{0}\\dnconsole.exe setprop --index {1} --key "phone.simserial" --value "auto"'.format(pathLdPlayer, i))
 
 def main():
     client = AdbClient(host="127.0.0.1", port=5037)
