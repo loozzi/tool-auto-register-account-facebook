@@ -65,17 +65,35 @@ def randomAllInformation():
     }
 
 
+def getCookie(device, path):
+    try:
+        with open(path, 'r', errors='ignore') as f:
+            result = []
+            data = f.read().split('{"expires"')
+            for i in range(1, len(data)):
+                # result.append(data[i].split['"name":"'][1].split('"')[0] + '=' + data[i].split['"value":"'][1].split('"')[0])
+                result.append(data[i].split('"name":"')[1].split('"')[0] + '=' + data[i].split('"value":"')[1].split('"')[0])
+            result.append('wd=1366x199')
+            return ';'.join(result)
+    except:
+        return 'cookie not found'
+
+
 def getToken(device):
     fileName = '{0}.txt'.format(getRandomPassword(20))
     device.pull('/data/data/com.facebook.lite/files/PropertiesStore_v02', './trashs/{0}'.format(fileName))
     try:
-        with open('./trashs/{0}'.format(fileName), 'r', errors='ignore') as f:
-            token = f.read().split('access_token":"')[1].split(('"'))[0]
-            uid = f.read().split('uid":"')[1].split(('"'))[0]
-            return {
-                'uid': uid,
-                'token': token
-            }
+        cookie = getCookie(device, './trashs/{0}'.format(fileName))
+        print(cookie)
+        return cookie
+        # with open('./trashs/{0}'.format(fileName), 'r', errors='ignore') as f:
+        #     # token = f.read().split('access_token":"')[1].split(('"'))[0]
+        #     # uid = f.read().split('uid":"')[1].split(('"'))[0]
+        #     return {
+        #         'uid': uid,
+        #         'token': token,
+        #         'cookie': cookie
+        #     }
     except:
         return 'die'
 
@@ -144,7 +162,7 @@ def startWarp(device):
         # getScreenShot(device)
 
 
-def startLite(device):
+def startLite(device, index):
     openApplication(device, packageLite)
     delay(d1)
     data = randomAllInformation()
@@ -189,11 +207,16 @@ def startLite(device):
     delay(d1)
 
     touchScreen(device, pointsLite[9]['x'], pointsLite[9]['y'])
+    time.sleep(0.4)
+    touchScreen(device, pointsLite[9]['x'], pointsLite[9]['y'] + 50)
     delay(d4)
-    touchScreen(device, pointsLite[10]['x'], pointsLite[10]['y'])
+    # touchScreen(device, pointsLite[10]['x'], pointsLite[10]['y'])
     delay(d1)
-    token = getToken(device)
-    print(token)
+    data_result = getToken(device)
+    print('{0}|{1}|{2}'.format(data_result.split(';')[0].split('=')[1], randomPassword, data_result))
+    if 'c_user' in data_result:
+        with open('./ouput/ouput_{0}.txt'.format(index), 'a') as f:
+            f.writelines('\n{0}|{1}|{2}'.format(data_result.split(';')[0].split('=')[1], randomPassword, data_result))
 
 
 def getScreenShot(device):

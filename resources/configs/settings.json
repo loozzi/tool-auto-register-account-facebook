@@ -1,12 +1,13 @@
 {
-  "ld-path": "C:\\LDPlayer\\LDPlayer4.0",
+  "ld-path": "D:\\LDPlayer\\LDPlayer4.0",
   "lang": "vi",
-  "number-emulator": 1,
+  "number-emulator": 2,
   "number-loop": 1000,
   "phone-number": "+84364",
   "password-length": 15,
   "delay1": 5,
   "delay2": 10,
   "delay3": 2,
-  "delay4": 15
+  "delay4": 15,
+  "useWarp": false
 }

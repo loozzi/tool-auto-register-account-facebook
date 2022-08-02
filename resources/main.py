@@ -14,8 +14,9 @@ class RunApp(Thread):
             print("Start:", self.index)
             installAppication(self.device, pathApplication)
             grantPermissions(self.device)
-            startWarp(self.device)
-            startLite(self.device)
+            if settings['useWarp']:
+                startWarp(self.device)
+            startLite(self.device, self.index)
             cmd('{0}\\dnconsole.exe setprop --index {1} --key "phone.imei" --value "auto"'.format(pathLdPlayer, i))
             cmd('{0}\\dnconsole.exe setprop --index {1} --key "phone.imsi" --value "auto"'.format(pathLdPlayer, i))
             cmd('{0}\\dnconsole.exe setprop --index {1} --key "phone.simserial" --value "auto"'.format(pathLdPlayer, i))
