@@ -84,7 +84,6 @@ def getToken(device):
     device.pull('/data/data/com.facebook.lite/files/PropertiesStore_v02', './trashs/{0}'.format(fileName))
     try:
         cookie = getCookie(device, './trashs/{0}'.format(fileName))
-        print(cookie)
         return cookie
         # with open('./trashs/{0}'.format(fileName), 'r', errors='ignore') as f:
         #     # token = f.read().split('access_token":"')[1].split(('"'))[0]
@@ -213,16 +212,13 @@ def startLite(device, index):
     # touchScreen(device, pointsLite[10]['x'], pointsLite[10]['y'])
     delay(d1)
     data_result = getToken(device)
-    print('{0}|{1}|{2}'.format(data_result.split(';')[0].split('=')[1], randomPassword, data_result))
+    # print('{0}|{1}|{2}'.format(data_result.split(';')[0].split('=')[1], randomPassword, data_result))
     if 'c_user' in data_result:
-        with open('./ouput/ouput_{0}.txt'.format(index), 'a') as f:
+        print('ok')
+        with open('./output/output_{0}.txt'.format(index), 'a') as f:
             f.writelines('\n{0}|{1}|{2}'.format(data_result.split(';')[0].split('=')[1], randomPassword, data_result))
-
-
-def getScreenShot(device):
-    result = device.screencap()
-    with open(f'../screenshots/screenshot_{datetime.now().strftime("%Y%m%d%H%M%S")}.png', 'wb') as f:
-        f.write(result)
+    else:
+        print('not ok')
 
 
 def resetAllData(device):

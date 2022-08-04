@@ -9,9 +9,9 @@ class RunApp(Thread):
         self.index = index
 
     def run(self):
+        print("Start:", self.index)
         for i in range(numLoop):
             cmd('{0}\\dnconsole.exe modify --index {1} --imei auto --androidid auto --mac auto'.format(pathLdPlayer, i))
-            print("Start:", self.index)
             installAppication(self.device, pathApplication)
             grantPermissions(self.device)
             if settings['useWarp']:
@@ -35,7 +35,7 @@ def main():
 
 def startLdPlayer(num):
     for i in range(num):
-        cmd('{0}\\dnconsole.exe modify --index {1} --imei auto --androidid auto --mac auto'.format(pathLdPlayer, i))
+        # cmd('{0}\\dnconsole.exe modify --index {1} --imei auto --androidid auto --mac auto'.format(pathLdPlayer, i))
         cmd('{0}\\dnconsole.exe launch --index {1}'.format(pathLdPlayer, i))
         cmd('{0}\\dnconsole.exe setprop --index {1} --key "phone.imei" --value "auto"'.format(pathLdPlayer, i))
         cmd('{0}\\dnconsole.exe setprop --index {1} --key "phone.imsi" --value "auto"'.format(pathLdPlayer, i))
@@ -44,10 +44,8 @@ def startLdPlayer(num):
         delay(d1)
 
 if __name__ == '__main__':
-    q1 = input("Open LDPlayer (y/n)? ")
-    if(q1 == 'y' or q1 == ''):
-        startLdPlayer(numEmulator)
-        q2 = input("Type `ok` when emolator open success. ")
+    startLdPlayer(numEmulator)
+    q2 = input("Type `ok` when emolator open success: ")
 
     main()
 
