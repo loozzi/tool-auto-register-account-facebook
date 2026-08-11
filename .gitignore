@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+
+# IDE
+.idea/
+
+# Bản build / công cụ / máy ảo nặng — không nên commit vào repo
+platform-tools/
+storages/
+resources/trashs/
+resources/output/
